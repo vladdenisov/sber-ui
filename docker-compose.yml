@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  ui_proxy:
+    image: nginx:alpine
+    ports:
+      - 3003:9000
+    volumes:
+      - .nginx/dev.conf.template:/etc/nginx/templates/nginx.conf.template
+    environment:
+      UI_SERVER: http://host.docker.internal:3002
+      CORE_URL: ${CORE_URL}
+    extra_hosts:
+      - host.docker.internal:host-gateway
